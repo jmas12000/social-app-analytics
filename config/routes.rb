@@ -1,7 +1,12 @@
-Myapp::Application.routes.draw do
-
+Myapp::Application.routes.draw do 
+  devise_for :users
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'     
+  end 
+ 
   # You can have the root of your site routed with "root"
   root to: 'dashboards#dashboard_1'
+   
 
   # All routes
   get "dashboards/dashboard_1"
