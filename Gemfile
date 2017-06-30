@@ -1,9 +1,16 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.8'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'font-awesome-rails', '4.7.0.1'
+
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-instagram'
+gem 'omniauth-google-oauth2'
+gem 'google-api-client'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -22,7 +29,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
-gem 'devise'
+gem 'devise' 
+gem 'figaro'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
