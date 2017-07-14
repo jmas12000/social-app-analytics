@@ -1,19 +1,49 @@
 <div class= "container">
-  <div id="fb-login">
+ <!-- <div id="fb-login">
     <h3 id="heading">Log into Facebook to view your profile</h3>
     <fb:login-button
       scope="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location"
       onlogin="checkLoginState();">
     </fb:login-button>
-  </div>
+  </div> -->
 <!--<div id="profile">-->
- <!-- <div class="col-sm-3">  -->
-  <div class="col-lg-6" id="profile">
-    <a href="#" onclick="logout()">logout Facebook</a>              
+ <div class="row">  
+    <div id="fb-login">
+    <h3 id="heading">Log into Facebook to view your profile</h3>
+    <a href="#"  onclick="login()">login to Facebook</a>
+   <!-- <fb:login-button
+      scope ="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location, shares"
+      onlogin ="checkLoginState();">
+    </fb:login-button>
+    -->
+    </div>
+  <div class="col-lg-6" id="profile" style="width: 50%; height: 500px; overflow: scroll;">
+    <a href="#"  onclick="logout()">logout Facebook</a>            
     <div id="fb-info"></div>
       <ul class="list-group clear-list m-t">
-        <div id ="feed"></div>
+        <div id ="feed">
+         
+        </div>
       </ul>
+    </div>
+    
+    <div id="li-login">
+    <h3 id="">Log into LinkedIn to view your profile</h3>
+    <!--<fb:login-button
+      scope="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location,shares"
+      onlogin="checkLoginState();">
+    </fb:login-button> -->
+    </div>
+    
+  <div class="col-lg-6" id="li-profile" style="width: 50%; height: 500px; overflow: scroll;">
+    <a href="#" onclick="li-logout()">logout LinkedIn</a>              
+    <div id="li-info"></div>
+      <ul class="list-group clear-list m-t">
+        <div id ="">
+         
+        </div>
+      </ul>
+    </div>
     </div>
    <!-- <div class= "col-sm-6">-->
     <div class= "col-lg-6">

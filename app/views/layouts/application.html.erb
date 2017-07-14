@@ -17,7 +17,27 @@
 
 </head>
 <body class="fixed-sidebar">
+
+  
 <script>
+function statusChangeCallback(response) {
+    
+    if (response.status === 'connected') {
+      setElements(true);
+      testApi();
+      console.log("logged in authenticated");
+    } else {
+      setElements(false); 
+      console.log("logged out and not authenticated");
+      console.log(response);
+    }
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '1836170400033998',
@@ -26,11 +46,11 @@
       version    : 'v2.8'
     });
     FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    
-    });  
-  };
+    statusChangeCallback(response);
+  });
 
+  };
+  
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
@@ -41,26 +61,24 @@
    
    function statusChangeCallback(response) {
      if(response.status === "connected") {
-       console.log("Logged in and authenticated");
        setElements(true);
        testApi();
-     }  else {
-       console.log("Not authenticated");
-       setElements(false);
+       console.log("logged in authenticated");
+      
+     }else if(response.status==='unknown') {  
+       setElements(false);  
+       console.log("logged out and not authenticated");
+       console.log(response); 
      }
    }
-   
-   function checkLoginState() {
-     FB.getLoginStatus(function(response) {
-       statusChangeCallback(response);
-     });
-   }
-   
+    
    function setElements(isLoggedIn){
      if(isLoggedIn){
        document.getElementById("profile").style.display = "block";
        document.getElementById("fb-login").style.display = "none";
-     } else {
+       
+     }else {
+       console.log("logged out");
        document.getElementById("profile").style.display = "none";
        document.getElementById("fb-login").style.display = "block";
      }
@@ -72,98 +90,99 @@
      });
    }
    
+   function login() {
+     FB.login(function(response) {
+       setElements(true);
+       testApi();
+     });
+   }
+     
    function testApi(){
      FB.api('/me?fields=name,email,likes,posts,birthday,location,id', function(response){
        if(response && !response.error){
-         //console.log(response);
          fillUserInfo(response);
        }
-       
-        FB.api('/me/feed', function(response){
-          if(response && !response.error){
-            buildFeed(response);
-          }
-          
-          FB.api('/me?fields=feed{likes}', function(response){
-            if(response && !response.error){
-             // console.log(response.posts.data[0].likes);
-              postLikes(response);
-            }
-         // });
-          // FB.api('/me?fields=feed{id,message,story,picture,reactions}', function(response){
-          //   if(response && !response.error){
-          //     postInfo(response);
-          //   }
-          });
-        });
+     
+       FB.api('/me?fields=feed{created_time,id,message,story,picture,reactions,comments,shares}' , function(response){
+         if(response && !response.error){
+           fbInfo(response);
+         } 
+       });
      })
    }
    
-  
-   
-   
-   function buildFeed(feed){
-     let output = `<h3>Latest Posts</h3>`;
-     var num = 1;
-     var likeNum = 0;
-     for(let i in feed.data){
-       if(feed.data[i].message){
-         output += `
-          <li class="list-group-item fist-item well">
-            <span class="label label-success pull-left">${num}</span><br />
-            ${feed.data[i].message} <br /> 
-            <i><b> ${feed.data[i].created_time}</b></i>
-            <div id="fb-like${likeNum}" class="text-success"></div>
-          </li>
-          `;
-       }else if(feed.data[i].story){
-         output += `
-          <li class="list-group-item fist-item well">
-            <span class="label label-success pull-left">${num}</span><br />
-            ${feed.data[i].story} <br /> 
-            <i><b> ${feed.data[i].created_time}</b></i>
-            <div id="fb-like${likeNum}" class="text-success"></div>
-          </li>
-          `;
-       }
-       num ++;
-       likeNum ++;  
-       
-       
-     }
-     document.getElementById("feed").innerHTML = output;
-   }
-   var fbLikes=[];
-   function postLikes(likes){
-     var count = 0;
-     for(let i in likes.feed.data){
-        var likeCount; 
-        var likeDiv= "fb-like"+count;
-       if(likes.feed.data[i].likes){
-         //if(likes.posts.data[i].likes.data){
-           likeCount = likes.feed.data[i].likes.data;
-           document.getElementById(likeDiv).innerHTML=  likeCount.length + " likes";
-           //fbLikes.push(likes.posts.data[i].likes.data.length);
-         }else {
-             //likeCount = likes.posts.data[i].likes.data;
-           document.getElementById(likeDiv).innerHTML= "0 likes";
-         }
-         count ++;
-         //console.log(likes.posts.data[i].likes.data.length);
-           
-      }
-    }
-     
-     //document.getElementById().innerHTML = output;
-    
    function fillUserInfo(user){
      let userInfo = ` 
       <h3>Welcome ${user.name} from ${user.location.name}</h3>`;
        document.getElementById("fb-info").innerHTML= userInfo ;
    }
    
-</script>
-
+   function fbInfo(feed){ 
+     let output = `<h3>Latest Posts</h3>`;
+     var num = 1;
+     
+     for(let i in feed.feed.data){
+       var likeNum = 0;
+       var shareNum=0;
+       if(feed.feed.data[i].shares){  
+         shareNum= feed.feed.data[i].shares.count;  
+       }
+       
+       if(feed.feed.data[i].message){
+         output += `<ul style=list-style-type:none;>
+           <li class="list-group-item fist-item well">
+             <span class="label label-success pull-left">${num}</span><br />
+             ${feed.feed.data[i].message} <br /> 
+             <i><b> ${feed.feed.data[i].created_time}</b></i>
+         </li>
+         `;
+       } else if(feed.feed.data[i].story){
+         output += `<ul style=list-style-type:none;>
+           <li class="list-group-item fist-item well">
+             <span class="label label-success pull-left">${num}</span><br />
+             ${feed.feed.data[i].story} <br /> 
+             <i><b> ${feed.feed.data[i].created_time}</b></i> </li> 
+         `;
+       }
+           
+       num++;
+       
+       if(feed.feed.data[i].picture){  
+         output += `
+           <li><img src= ${feed.feed.data[i].picture} style="max-width:100%;max-height:100%;object-fit:contain;"></li>
+         `;
+       }
+       
+       if(feed.feed.data[i].reactions){
+         for(let y in feed.feed.data[i].reactions.data){
+           if(feed.feed.data[i].reactions.data[y].type == "LIKE" || feed.feed.data[i].reactions.data[y].type == "LOVE" || feed.feed.data[i].reactions.data[y].type == "HAHA"){
+             likeNum ++;
+           }
+         }
+         output += `
+         <li>${likeNum} Likes</li>
+         <li>${shareNum} Shares</li>
+       `;
+       }
+        
+       if(feed.feed.data[i].comments){
+           output += `<h4><i>Comments</i></h4>`;
+         for(let c in feed.feed.data[i].comments.data){
+           output += ` 
+             <ul>
+               <li>${feed.feed.data[i].comments.data[c].message} <br /><i>${feed.feed.data[i].comments.data[c].from.name}</i></li>
+             </ul>
+           `;
+         }
+       }
+       output += `
+       </ul>
+       `;
+       
+       document.getElementById("feed").innerHTML = output;
+     } 
+   }   
+</script> 
 
 <!-- Skin configuration box -->
 <!-- <%= render 'layouts/skinconfig' %> -->
