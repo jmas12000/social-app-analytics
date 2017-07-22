@@ -17,33 +17,37 @@
     </fb:login-button>
     -->
     </div>
-  <div class="col-lg-6" id="profile" style="width: 50%; height: 500px; overflow: scroll;">
-    <a href="#"  onclick="logout()">logout Facebook</a>            
+  <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12" id="profile" style="width: 50%; height: 500px; overflow: scroll;">
+    <a id="" onclick="logout()">Logout</a>           
     <div id="fb-info"></div>
-      <ul class="list-group clear-list m-t">
+      <ul class="list-group clear-list m-t"> 
         <div id ="feed">
          
         </div>
       </ul>
     </div>
     
-    <div id="li-login">
-    <h3 id="">Log into LinkedIn to view your profile</h3>
+    <div id="twitter-login" class="col-xl-6 col-lg-6 col-md-6 col-xs-12">
+    <% if current_user.provider.nil? %>
+      <h3 id="">Log into Twitter to view your profile</h3>
+      <%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path %>
+    <% else %>
+      <h3 id="">Welcome to your Twitter page <%= "#{current_user.name}" %></h3>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+    <% end %>
+   <%= current_user.inspect %>
+   
+   
+      
+      
+     
     <!--<fb:login-button
       scope="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location,shares"
       onlogin="checkLoginState();">
     </fb:login-button> -->
     </div>
     
-  <div class="col-lg-6" id="li-profile" style="width: 50%; height: 500px; overflow: scroll;">
-    <a href="#" onclick="li-logout()">logout LinkedIn</a>              
-    <div id="li-info"></div>
-      <ul class="list-group clear-list m-t">
-        <div id ="">
-         
-        </div>
-      </ul>
-    </div>
+ 
     </div>
    <!-- <div class= "col-sm-6">-->
     <div class= "col-lg-6">
