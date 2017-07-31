@@ -1,25 +1,86 @@
 class User < ActiveRecord::Base
+  require 'rubygems'
+  require 'bundler/setup'
+
+  require 'twitter'
+  require 'json'
+  has_many :tweets
+  
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:twitter]
   
   def self.new_with_session(params, session)
-  super.tap do |user|
-    if data = session["devise.twitter_data"] && session["devise.twitter_data"]["extra"]["raw_info"]
-      user.email = data["email"] if user.email.blank?
+    super.tap do |user|
+      if data = session["devise.twitter_data"] && session["devise.twitter_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
     end
   end
-end
-
-def self.from_omniauth(auth)
-  where(provider: auth.provider, Uid: auth.uid).first_or_create do |user|
-    user.email = auth.info.email  while user.email.blank?
-    user.password = Devise.friendly_token[0,20]
-    user.name = auth.info.name   # assuming the user model has a name
-    user.profile_image = auth.info.image # assuming the user model has an image
+#railscast version
+#=begin
+  def self.find_or_create_from_auth_hash(auth_hash)
+    user = where(provider: auth_hash.provider, uid: auth_hash.uid).first_or_create #do |user|
+    user.update(
+      #provider: auth_hash.provider,
+      #Uid: auth_hash.uid,
+    #email:  auth.info.email  while user.email.blank?,
+      password:  Devise.friendly_token[0,20],
+      name: auth_hash.info.name,  # assuming the user model has a name
+      profile_image: auth_hash.info.image, # assuming the user model has an image
+      token: auth_hash.credentials.token,
+      secret: auth_hash.credentials.secret,
+      screen_name: auth_hash.extra.raw_info.screen_name
+    )
+    user
   end
-end
+  
+  def twitter
+   
+    @client ||= Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV["TWITTER_APP_ID"]
+      config.consumer_secret     = ENV["TWITTER_APP_SECRET"]
+      config.access_token        = token
+      config.access_token_secret = secret
+     
+    end
+  end
+#richonrails version
+=begin
+def self.from_omniauth(auth)
+    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
+      user.provider = auth.provider
+      user.Uid = auth.uid
+      user.name = auth.info.name
+      user.Token = auth.credentials.token
+      user.Secret = auth.credentials.secret
+      user.screen_name = auth.extra.raw_info.screen_name
+      user.save!
+    end
+  end
+
+  
+  def tweet(tweet)
+   
+    client ||= Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV["TWITTER_APP_ID"]
+      config.consumer_secret     = ENV["TWITTER_APP_SECRET"]
+      config.access_token        = Token
+      config.access_token_secret = Secret
+     
+    end
+   client.update(tweet)
+
+    
+  end
+=end
+  
+  
+ 
+  
+
 =begin        
   def self.find_or_create_from_auth_hash(auth_hash)
     user = where(provider: auth_hash.provider, uid: auth_hash.uid).first_or_create
@@ -76,5 +137,7 @@ end
     gravatar_id = Digest::MD5::hexdigest(self.email).downcase
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
+  
+  
 end
  

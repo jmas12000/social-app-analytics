@@ -8,9 +8,11 @@ gem 'font-awesome-rails', '4.7.0.1'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-gem 'omniauth-instagram'
+gem 'omniauth-instagram' 
 gem 'omniauth-google-oauth2'
 gem 'google-api-client'
+gem 'twitter', '~> 5.16'
+
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

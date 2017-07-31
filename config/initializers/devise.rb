@@ -254,7 +254,7 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH2_APP_ID'], ENV['GOOGLE_OAUTH2_APP_SECRET'], scope: "email,profile,offline", prompt: "consent", setup: true
   config.omniauth :instagram, ENV['INSTAGRAM_APP_ID'], ENV['INSTAGRAM_APP_SECRET'], setup: true
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: "email", setup: true
-  config.omniauth :twitter,"kCZuhq6aXSAku9Tv3AjUPcjjj", "k8I7knFmjM3KgM1dx9qca4zatS60Glo74orisbIdK6lCzqAFye"# ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET']#, callback_url: "https://social-app-analytics-jeffmoore.c9users.io/users/auth/twitter/callback"
+  config.omniauth :twitter, ENV['TWITTER_APP_ID'], ENV["TWITTER_APP_SECRET"]# ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET']#, callback_url: "https://social-app-analytics-jeffmoore.c9users.io/users/auth/twitter/callback"
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

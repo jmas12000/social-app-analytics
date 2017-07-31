@@ -3,9 +3,12 @@ Myapp::Application.routes.draw do
   devise_scope :user do 
     #get '/users/auth/:provider/upgrade' => 'omniauth_callbacks#upgrade', as: :user_omniauth_upgrade
     #get '/users/auth/:provider/setup', :to => 'omniauth_callbacks#setup'
-    get '/users/sign_out' => 'devise/sessions#destroy'     
+    get '/users/sign_out' => 'devise/sessions#destroy'
+   
   end 
+  resources :tweets#, only: [:new, :create, :index, :show]
   
+    # get '/tweets' => 'users#client.get_all_tweets'
  
   # You can have the root of your site routed with "root"
   root to: 'dashboards#dashboard_1'

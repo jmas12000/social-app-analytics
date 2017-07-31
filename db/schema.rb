@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628043643) do
+ActiveRecord::Schema.define(version: 20170731211451) do
 
   create_table "form_users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -36,6 +36,23 @@ ActiveRecord::Schema.define(version: 20170628043643) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
+  create_table "testimonies", force: :cascade do |t|
+    t.string   "tweet_id"
+    t.string   "screen_name"
+    t.text     "content"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "tweets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.string   "body"
+  end
+
+  add_index "tweets", ["user_id"], name: "index_tweets_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -51,11 +68,12 @@ ActiveRecord::Schema.define(version: 20170628043643) do
     t.string   "last_sign_in_ip"
     t.string   "username"
     t.string   "provider"
-    t.string   "Uid"
-    t.string   "Token"
-    t.string   "Secret"
+    t.string   "uid"
+    t.string   "token"
+    t.string   "secret"
     t.string   "profile_image"
     t.string   "name"
+    t.string   "screen_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

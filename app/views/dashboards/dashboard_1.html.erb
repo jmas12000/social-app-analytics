@@ -1,5 +1,21 @@
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
 <div class= "container">
- <!-- <div id="fb-login">
+ <!-- <div id="fb-login"             >
     <h3 id="heading">Log into Facebook to view your profile</h3>
     <fb:login-button
       scope="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location"
@@ -34,9 +50,22 @@
     <% else %>
       <h3 id="">Welcome to your Twitter page <%= "#{current_user.name}" %></h3>
       <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+     <p>Click The link below to send a tweet.</p>
+    <%= link_to "Send a Tweet", new_tweet_path %>
+<%#= render 'tweets/form' %>
     <% end %>
-   <%= current_user.inspect %>
-   
+   <!--<div id= "twitter-wjs"></>-->
+ <% current_user.tweets.each do |tweet| %>
+   <ul>
+     <li><%= link_to tweet.body, tweet_path(tweet.id) %></li>
+   </ul>
+ <%end%>
+ <%#= GET statuses/home_timeline%>
+            
+            <h1><%#= Twitter.client.inspect%></h1>
+           
+           
+         <%#= user.tweets.home_timeline() %>  
    
       
       
