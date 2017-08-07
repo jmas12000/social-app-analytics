@@ -1,12 +1,9 @@
-<script>
 
-
-</script>
 <div class= "container">
   <div class="row">  
     <div id="fb-login">
     <h3 id="heading">Log into Facebook to view your profile</h3>
-    <a href="#"  onclick="login()">login to Facebook</a>
+    <a class = "btn btn-block btn-social btn-facebook" href="#"  onclick="login()"><span class="fa fa-facebook"></span> Login to Facebook</a>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12" id="profile" style="width: 50%; height: 800px; overflow: scroll;">
     <a id="" onclick="logout()">Logout</a>           
@@ -19,8 +16,7 @@
     
     <div id="twitter-login" class="col-xl-6 col-lg-6 col-md-6 col-xs-12">
       <% if current_user.provider.nil? %>
-        <h3 id="">Log into Twitter to view your profile</h3>
-        <%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path %>
+        <a class="btn btn-block btn-social btn-twitter" > <span class="fa fa-twitter"></span><%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path %>
       <% else %>
         <h3 id="">Welcome to your Twitter page <%= "#{current_user.name}" %></h3>
         <%= link_to "Logout of twitter", destroy_user_session_path, method: :delete %>
@@ -37,6 +33,8 @@
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
   </div>
+</div>
+  <!--
     <div class= "col-lg-6">
       <div class="flot-chart dashboard-chart">
         <div class="flot-chart-content" id="flot-dashboard-chart"></div>
@@ -115,7 +113,7 @@
                     </div>
                     <h4>
                       NYS report new data!<br />
-                      <small class="m-r"><a href="<%= url_for :controller => 'graphs', :action => 'flot' %>"> Check the stock price! </a> </small>
+                      <small class="m-r"><a href="<%#= url_for :controller => 'graphs', :action => 'flot' %>"> Check the stock price! </a> </small>
                     </h4>
                   </div>
                 </div>
@@ -185,8 +183,8 @@
                 <div>
                   <div class="feed-activity-list">
                     <div class="feed-element">
-                      <a href="<%= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
-                        <img alt="image" class="img-circle" src="<%= image_url 'profile.jpg' %>">
+                      <a href="<%#= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
+                        <img alt="image" class="img-circle" src="<%#= image_url 'profile.jpg' %>">
                         </a>
                         <div class="media-body ">
                           <small class="pull-right">5m ago</small>
@@ -195,7 +193,7 @@
                         </div>
                       </div>
                       <div class="feed-element">
-                        <a href="<%= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
+                        <a href="<%#= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
                           <img alt="image" class="img-circle" src="assets/a2.jpg">
                         </a>
                         <div class="media-body ">
@@ -205,7 +203,7 @@
                         </div>
                       </div>
                       <div class="feed-element">
-                        <a href="<%= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
+                        <a href="<%#= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
                           <img alt="image" class="img-circle" src="assets/a3.jpg">
                         </a>
                         <div class="media-body ">
@@ -215,7 +213,7 @@
                         </div>
                       </div>
                       <div class="feed-element">
-                        <a href="<%= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
+                        <a href="<%#= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
                           <img alt="image" class="img-circle" src="assets/a4.jpg">
                         </a>
                         <div class="media-body ">
@@ -229,7 +227,7 @@
                         </div>
                       </div>
                       <div class="feed-element">
-                        <a href="<%= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
+                        <a href="<%#= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
                           <img alt="image" class="img-circle" src="assets/a5.jpg">
                         </a>
                         <div class="media-body ">
@@ -246,7 +244,7 @@
                         </div>
                       </div>
                       <div class="feed-element">
-                        <a href="<%= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
+                        <a href="<%#= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
                           <img alt="image" class="img-circle" src="assets/profile.jpg">
                         </a>
                         <div class="media-body ">
@@ -256,7 +254,7 @@
                         </div>
                       </div>
                       <div class="feed-element">
-                        <a href="<%= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
+                        <a href="<%#= url_for :controller => 'appviews', :action => 'profile' %>" class="pull-left">
                           <img alt="image" class="img-circle" src="assets/a7.jpg">
                         </a>
                         <div class="media-body ">
@@ -388,7 +386,7 @@
       </div>
     </div>
 
-<% content_for :javascript do %>
+<%# content_for :javascript do %>
 
 <script type="text/javascript">
 
@@ -519,4 +517,5 @@ $(function() {
 
 </script>
 
-<% end %>
+<%# end %>
+-->

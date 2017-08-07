@@ -16,50 +16,53 @@ Myapp::Application.routes.draw do
 
   # All routes
   get "dashboards/dashboard_1"
-  get "dashboards/dashboard_2"
+end
+=begin  
+   get "dashboards/dashboard_2"
   get "dashboards/dashboard_3"
   get "dashboards/dashboard_4"
   get "dashboards/dashboard_4_1"
   get "dashboards/dashboard_5"
 
-  get "layoutsoptions/index"
-  get "layoutsoptions/off_canvas"
+ # get "layoutsoptions/index"
+ # get "layoutsoptions/off_canvas"
 
-  get "graphs/flot"
-  get "graphs/morris"
-  get "graphs/rickshaw"
-  get "graphs/chartjs"
-  get "graphs/chartist"
-  get "graphs/peity"
-  get "graphs/sparkline"
-  get "graphs/c3charts"
+ # get "graphs/flot"
+  #get "graphs/morris"
+ # get "graphs/rickshaw"
+  #get "graphs/chartjs"
+  #get "graphs/chartist"
+  #get "graphs/peity"
+  #get "graphs/sparkline"
+  #get "graphs/c3charts"
 
-  get "mailbox/inbox"
-  get "mailbox/email_view"
-  get "mailbox/compose_email"
-  get "mailbox/email_templates"
-  get "mailbox/basic_action_email"
-  get "mailbox/alert_email"
-  get "mailbox/billing_email"
+  #get "mailbox/inbox"
+  #get "mailbox/email_view"
+  #get "mailbox/compose_email"
+  #get "mailbox/email_templates"
+  #get "mailbox/basic_action_email"
+  #get "mailbox/alert_email"
+  #get "mailbox/billing_email"
 
-  get "metrics/index"
+  #get "metrics/index"
 
-  get "widgets/index"
+  #get "widgets/index"
 
-  get "forms/basic_forms"
-  get "forms/advanced"
-  get "forms/wizard"
-  get "forms/file_upload"
-  get "forms/text_editor"
-  get "forms/autocomplete"
-  get "forms/markdown"
+  #get "forms/basic_forms"
+  #get "forms/advanced"
+  #get "forms/wizard"
+  #get "forms/file_upload"
+  #get "forms/text_editor"
+  #get "forms/autocomplete"
+  #get "forms/markdown"
 
-  get "appviews/contacts"
-  get "appviews/profile"
-  get "appviews/profile_two"
-  get "appviews/contacts_two"
-  get "appviews/projects"
-  get "appviews/project_detail"
+  #get "appviews/contacts"
+  #get "appviews/profile"
+  #get "appviews/profile_two"
+  #get "appviews/contacts_two"
+  #get "appviews/projects"
+  #get "appviews/project_detail"
+
   get "appviews/activity_stream"
   get "appviews/file_menager"
   get "appviews/vote_list"
@@ -152,4 +155,4 @@ Myapp::Application.routes.draw do
 
   get "landing/index"
 
-end
+=end
