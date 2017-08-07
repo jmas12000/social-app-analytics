@@ -1,5 +1,6 @@
+
 class TweetsController < ApplicationController
-    before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
@@ -21,7 +22,6 @@ class TweetsController < ApplicationController
   end
 
   def create
-   #richonrails version current_user.tweet(twitter_params[:message])
    @tweet = Tweet.new(tweet_params)
    @tweet.user_id = current_user.id
    @tweet.save
@@ -37,8 +37,6 @@ class TweetsController < ApplicationController
     @tweet.destroy
     respond_with(@tweet)
   end
-  
-  
 
   private
     def set_tweet
@@ -49,3 +47,4 @@ class TweetsController < ApplicationController
       params.require(:tweet).permit(:user_id, :body)
     end
 end
+

@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.8'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'font-awesome-rails', '4.7.0.1'
-
+ 
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
@@ -16,6 +16,8 @@ gem 'twitter', '~> 5.16'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+
+gem 'httparty'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'

@@ -1,84 +1,42 @@
-<script>window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
+<script>
 
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
 
-  return t;
-}(document, "script", "twitter-wjs"));</script>
+</script>
 <div class= "container">
- <!-- <div id="fb-login"             >
-    <h3 id="heading">Log into Facebook to view your profile</h3>
-    <fb:login-button
-      scope="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location"
-      onlogin="checkLoginState();">
-    </fb:login-button>
-  </div> -->
-<!--<div id="profile">-->
- <div class="row">  
+  <div class="row">  
     <div id="fb-login">
     <h3 id="heading">Log into Facebook to view your profile</h3>
     <a href="#"  onclick="login()">login to Facebook</a>
-   <!-- <fb:login-button
-      scope ="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location, shares"
-      onlogin ="checkLoginState();">
-    </fb:login-button>
-    -->
-    </div>
-  <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12" id="profile" style="width: 50%; height: 500px; overflow: scroll;">
+  </div>
+  <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12" id="profile" style="width: 50%; height: 800px; overflow: scroll;">
     <a id="" onclick="logout()">Logout</a>           
     <div id="fb-info"></div>
       <ul class="list-group clear-list m-t"> 
-        <div id ="feed">
-         
+        <div id ="feed"> 
         </div>
       </ul>
     </div>
     
     <div id="twitter-login" class="col-xl-6 col-lg-6 col-md-6 col-xs-12">
-    <% if current_user.provider.nil? %>
-      <h3 id="">Log into Twitter to view your profile</h3>
-      <%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path %>
-    <% else %>
-      <h3 id="">Welcome to your Twitter page <%= "#{current_user.name}" %></h3>
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-     <p>Click The link below to send a tweet.</p>
-    <%= link_to "Send a Tweet", new_tweet_path %>
-<%#= render 'tweets/form' %>
-    <% end %>
-   <!--<div id= "twitter-wjs"></>-->
- <% current_user.tweets.each do |tweet| %>
-   <ul>
-     <li><%= link_to tweet.body, tweet_path(tweet.id) %></li>
-   </ul>
- <%end%>
- <%#= GET statuses/home_timeline%>
-            
-            <h1><%#= Twitter.client.inspect%></h1>
-           
-           
-         <%#= user.tweets.home_timeline() %>  
-   
-      
-      
-     
-    <!--<fb:login-button
-      scope="public_profile,email,user_likes,user_posts,publish_pages,publish_actions, user_birthday, user_location,shares"
-      onlogin="checkLoginState();">
-    </fb:login-button> -->
+      <% if current_user.provider.nil? %>
+        <h3 id="">Log into Twitter to view your profile</h3>
+        <%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path %>
+      <% else %>
+        <h3 id="">Welcome to your Twitter page <%= "#{current_user.name}" %></h3>
+        <%= link_to "Logout of twitter", destroy_user_session_path, method: :delete %>
+        <p>Here's a list of all your Tweets created on Social-One</p>
+        <% current_user.tweets.each do |tweet| %>
+          <ul style = "list-style-type : none">
+            <li ><%= link_to tweet.body, tweet_path(tweet.id) %></li>
+          </ul>
+        <%end%>
+        <p>Click The link below to send a tweet.</p>
+        <%= link_to "send a Tweet", new_tweet_path %>
+      <% end %>
+      <a class="twitter-timeline"  href="https://twitter.com/search?q=jmas12000" data-widget-id="892825943563132928">Tweets about jmas12000</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
-    
- 
-    </div>
-   <!-- <div class= "col-sm-6">-->
+  </div>
     <div class= "col-lg-6">
       <div class="flot-chart dashboard-chart">
         <div class="flot-chart-content" id="flot-dashboard-chart"></div>
